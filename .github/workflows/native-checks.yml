@@ -26,4 +26,9 @@ jobs:
       - name: Test Windows logic
         run: dotnet test windows/Unictrl.Tests/Unictrl.Tests.csproj -c Release
       - name: Build Windows app
-        run: dotnet build windows/Unictrl/Unictrl.csproj -c Release -p:Platform=x64
+        run: dotnet publish windows/Unictrl/Unictrl.csproj -c Release -p:Platform=x64 -o dist/windows
+      - name: Upload Windows app
+        uses: actions/upload-artifact@v4
+        with:
+          name: Unictrl-windows-x64
+          path: dist/windows/
