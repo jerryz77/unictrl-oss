@@ -489,9 +489,12 @@ import ServiceManagement
         let screens = settings.arrangement.order.map { screen -> ArrangementMessage.Screen in
             let size = screenSize(of: screen)
             let name = name(of: screen)
-            return .init(id: screen, name: name, widthMm: (size.width * 10).rounded() / 10, heightMm: (size.height * 10).rounded() / 10,
-                         offsetMm: (settings.arrangement.offset(of: screen) * 10).rounded() / 10,
-                         online: screen == Arrangement.mac || server.isConnected(screen))
+            let width = (Double(size.width) * 10).rounded() / 10
+            let height = (Double(size.height) * 10).rounded() / 10
+            let offset = (settings.arrangement.offset(of: screen) * 10).rounded() / 10
+            let online = screen == Arrangement.mac || server.isConnected(screen)
+            return .init(id: screen, name: name, widthMm: width, heightMm: height,
+                         offsetMm: offset, online: online)
         }
         return ArrangementMessage(you: id, screens: screens)
     }
