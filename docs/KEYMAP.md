@@ -55,3 +55,21 @@ nothing, even when diverted.
 Diversion is volatile; Unictrl reapplies it when the keyboard reconnects (retrying for about a minute,
 since a keyboard waking over Bluetooth may not answer at once), every minute, and after the Mac wakes,
 and hands the keys back on quit.
+
+## G502 X custom-button preset (opt-in)
+
+Enable **Use F13 / F14 / F15 as mouse actions** on the Mac and assign the three mouse
+buttons to single keys in G HUB (prefer onboard memory). These keys are reserved on
+all attached keyboards, not identified by mouse model. Only these explicit triggers
+can bypass the synthetic-key filter; unrelated software-generated input is unchanged.
+
+| Trigger | Action ID | Mac | Windows |
+| --- | --- | --- | --- |
+| F13 | 6 | Control+Left (previous Space) | Ctrl+Win+Left |
+| F14 | 7 | Control+Right (next Space) | Ctrl+Win+Right |
+| F15 | 8 | Mute media key | VK_VOLUME_MUTE |
+
+Each press runs once on the computer under the pointer; repeats and the matching
+release are consumed. Releases remain consumed after crossing or disabling the preset.
+Windows desktop switching temporarily releases and restores held keyboard modifiers.
+Both apps must be updated; older receivers ignore action IDs 6–8.

@@ -139,3 +139,7 @@ Mac 通过事件监听（event tap）读取输入。指针在 Mac 上时，Unict
 代码和图标都以 [GNU GPL v3.0](LICENSE) 授权：可以自由使用、修改和分发；分发修改版时也必须以 GPL-3.0 开放源码。Fork 可以继续使用 Unictrl 这个名字和图标。
 
 © 2026 Enliva LLC · [enliva.org](https://www.enliva.org)
+
+## G502 X PLUS / NuPhy Kick75 适配
+
+本 fork 增加桌面左、桌面右、静音三个自定义按钮动作。安装和 G HUB 配置见 [docs/G502X-SETUP.zh-Hans.md](docs/G502X-SETUP.zh-Hans.md)。

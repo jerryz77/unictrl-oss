@@ -93,6 +93,7 @@ final class InputCapture {
     private let localScroll = ScrollSmoother()
     private let remoteScroll = ScrollSmoother()
     private var loggedScrollSample = false
+    private var mouseButtons = CustomMouseButtons()
     private var syntheticPassed = 0
     private var movesLogged = 0
     private var identifyKeysUntil = Date.distantPast
@@ -346,6 +347,19 @@ final class InputCapture {
         }
 
         if Date() < identifyKeysUntil { logSpecialKey(type, event) }
+        // Only three explicitly reserved trigger keys may bypass the synthetic-key filter.
+        // G HUB can emit these in software; arbitrary macros/dictation still stay on the Mac.
+        if type == .keyDown || type == .keyUp {
+            let result = mouseButtons.handle(
+                keyCode: UInt16(event.getIntegerValueField(.keyboardEventKeycode)),
+                down: type == .keyDown,
+                isRepeat: event.getIntegerValueField(.keyboardEventAutorepeat) != 0,
+                enabled: settings.g502xButtons && settings.enabled)
+            if result.consumed {
+                if let action = result.action { perform(action) }
+                return nil
+            }
+        }
         if let result = handleKeyboardMacro(type, event) { return result }
         if mode == .local {
             if type == .scrollWheel { return handleLocalScroll(event) }

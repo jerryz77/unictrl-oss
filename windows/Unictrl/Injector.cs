@@ -209,6 +209,27 @@ internal sealed class Injector
     public void Action(byte action)
     {
         if (!Active) return;
+        // New mouse actions must not leave a physically held keyboard modifier released.
+        if (action is 6 or 7)
+        {
+            var modifiers = heldKeys.Where(k => k.Scan is 0x1D or 0x2A or 0x36 or 0x38 or 0x5B or 0x5C).ToList();
+            ReleaseModifiers();
+            Chord((0x1D, false), (0x5B, true), (action == 6 ? (ushort)0x4B : (ushort)0x4D, true));
+            foreach (var key in modifiers)
+            {
+                SendScan(key.Scan, key.Extended, true);
+                heldKeys.Add(key);
+            }
+            Log.Write("action", $"id={action}");
+            return;
+        }
+        if (action == 8)
+        {
+            SendVirtualKey(0xAD, true); // VK_VOLUME_MUTE
+            SendVirtualKey(0xAD, false);
+            Log.Write("action", $"id={action}");
+            return;
+        }
         ReleaseModifiers();
         const ushort win = 0x5B, tab = 0x0F, d = 0x20, a = 0x1E, shift = 0x2A, ctrl = 0x1D;
         switch (action)

@@ -134,6 +134,16 @@ struct SettingsView: View {
                 }
             }
 
+            Section("G502 X custom buttons") {
+                Toggle("Use F13 / F14 / F15 as mouse actions", isOn: $controller.g502xButtons)
+                if controller.g502xButtons {
+                    Text("In G HUB, assign desktop left to F13, desktop right to F14, and mute to F15. Keep DPI, scrolling and other buttons unchanged. These keys are reserved on all connected keyboards while enabled.")
+                        .font(.caption).foregroundStyle(.secondary)
+                    Text("Actions follow the pointer. On the Mac, enable Control–Left/Right Arrow in Keyboard Shortcuts › Mission Control.")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
+            }
+
             Section {
                 Toggle(isOn: $controller.reverseMouseWheel) {
                     Text("Reverse mouse wheel")

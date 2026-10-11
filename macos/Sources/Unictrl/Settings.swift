@@ -20,6 +20,8 @@ struct UnictrlSettings: Codable {
     var reverseMouseWheel = true
     /// Turn wheel notches into short eased glides, on the Mac and on the PC.
     var smoothScrolling = true
+    /// Reserve F13/F14/F15 for G502 X desktop-left/desktop-right/mute buttons. Opt-in.
+    var g502xButtons = false
     /// "native": Windows applies its own pointer speed and acceleration to raw mouse counts, like a
     /// mouse connected to it directly. "physical": Mac acceleration, converted by millimetres.
     var pointerMode = "native"
@@ -52,6 +54,7 @@ struct UnictrlSettings: Codable {
         .appendingPathComponent("Unictrl/settings.json")
 
     private enum CodingKeys: String, CodingKey {
+        case g502xButtons
         case pcPointerScale, pcScrollScale, shareChannel, readySound, readySoundName
         case peers, arrangement, pairingKey, deviceID, port, peerSide, verticalOffsetMm, invertScroll, scrollScale,
              reverseMouseWheel, smoothScrolling, pointerMode, enabled, sleepHandoff, showMenuBarIcon, showDockIcon,
@@ -73,6 +76,7 @@ struct UnictrlSettings: Codable {
         scrollScale = try c.decodeIfPresent(Double.self, forKey: .scrollScale) ?? 1
         reverseMouseWheel = try c.decodeIfPresent(Bool.self, forKey: .reverseMouseWheel) ?? true
         smoothScrolling = try c.decodeIfPresent(Bool.self, forKey: .smoothScrolling) ?? true
+        g502xButtons = try c.decodeIfPresent(Bool.self, forKey: .g502xButtons) ?? false
         pointerMode = try c.decodeIfPresent(String.self, forKey: .pointerMode) ?? "native"
         pcPointerScale = try c.decodeIfPresent(Double.self, forKey: .pcPointerScale) ?? 1
         pcScrollScale = try c.decodeIfPresent(Double.self, forKey: .pcScrollScale) ?? 1

@@ -35,6 +35,9 @@ import ServiceManagement
     @Published var smoothScrolling: Bool {
         didSet { settings.smoothScrolling = smoothScrolling; applySettings() }
     }
+    @Published var g502xButtons: Bool {
+        didSet { settings.g502xButtons = g502xButtons; applySettings() }
+    }
     /// "native": each PC's own pointer speed; "physical": the Mac's, converted by millimetres.
     @Published var pointerMode: String {
         didSet { settings.pointerMode = pointerMode; applySettings() }
@@ -152,6 +155,7 @@ import ServiceManagement
         enabled = settings.enabled
         reverseMouseWheel = settings.reverseMouseWheel
         smoothScrolling = settings.smoothScrolling
+        g502xButtons = settings.g502xButtons
         sleepHandoff = settings.sleepHandoff
         showMenuBarIcon = settings.showMenuBarIcon
         showDockIcon = settings.showDockIcon

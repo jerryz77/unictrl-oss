@@ -107,3 +107,7 @@ to an online PC with HID++ 0x1814 ChangeHost. The PC's keyboard channel is found
 against the keyboard's HID++ 0x1815 host names (or the channel the PC last reported); the mouse has no
 host names, so it uses the PC's reported mouse channel or, until then, the keyboard's. When the screens
 wake (not on dark wakes) and the session is back, the Mac sends `reclaim` with its own channels.
+
+### Additional custom-mouse actions
+
+The existing `action` message also accepts IDs 6 (desktop left), 7 (desktop right), and 8 (mute). Both apps must be updated to use these; older receivers ignore unknown IDs. No new frame format or unencrypted transport is introduced.

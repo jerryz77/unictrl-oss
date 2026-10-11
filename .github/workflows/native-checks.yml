@@ -1,0 +1,29 @@
+name: Native checks
+
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test Mac app
+        working-directory: macos
+        run: swift test
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Test Windows logic
+        run: dotnet test windows/Unictrl.Tests/Unictrl.Tests.csproj -c Release
+      - name: Build Windows app
+        run: dotnet build windows/Unictrl/Unictrl.csproj -c Release -p:Platform=x64
